@@ -1,5 +1,10 @@
+const transformFirstLetter = (string) => {
+  const firstLetter = string[0].toUpperCase();
+  return firstLetter.concat(string.slice(1));
+};
+
 const writeToFile = (data) => {
-  Deno.writeTextFileSync("./pokemons.json", JSON.stringify(data));
+  Deno.writeTextFileSync("./pokemons.json", JSON.stringify(data, null, 2));
 };
 
 const extractPokemonDetails = async (pokemons) => {
@@ -9,13 +14,14 @@ const extractPokemonDetails = async (pokemons) => {
     const response = await fetch(pokemon.url);
     const pokeData = await response.json();
     const { id, name, weight, base_experience } = pokeData;
-    const types = pokeData.types.map((t) => t.type.name);
+    const pokeName = transformFirstLetter(name);
+    const types = pokeData.types.map((t) => transformFirstLetter(t.type.name));
     const [hp, attack, defense, speed] = pokeData.stats
       .filter((s) => features.includes(s.stat.name))
       .map((s) => s.base_stat);
     allData.push({
       id,
-      name,
+      pokeName,
       weight,
       base_experience,
       hp,
