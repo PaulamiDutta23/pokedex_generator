@@ -1,4 +1,4 @@
-const transformFirstLetter = (string) => {
+export const transformFirstLetter = (string) => {
   const firstLetter = string[0].toUpperCase();
   return firstLetter.concat(string.slice(1));
 };
