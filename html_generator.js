@@ -107,7 +107,7 @@ const getPokemons = (type, pokemons) =>
   pokemons.filter((p) => p.types.includes(transformFirstLetter(type)));
 
 const generateHtmlFiles = async (pokemons) => {
-  const types = ["all", "bug"];
+  const types = ["all", "bug", "dark", "dragon", "electric", "fairy", "fighting", "fire", "flying", "ghost", "grass", "ground", "ice", "normal", "poison", "psychic", "rock", "steel", "water"];
 
   for (const type of types) {
     const [pokeData, file] = type === "all"
