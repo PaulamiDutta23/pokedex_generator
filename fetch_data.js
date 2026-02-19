@@ -1,4 +1,4 @@
-export const transformFirstLetter = (string) => {
+export const capitalizeFirstLetter = (string) => {
   const firstLetter = string[0].toUpperCase();
   return firstLetter.concat(string.slice(1));
 };
@@ -14,8 +14,8 @@ const extractPokemonDetails = async (pokemons) => {
     const response = await fetch(pokemon.url);
     const pokeData = await response.json();
     const { id, name, weight, base_experience } = pokeData;
-    const pokeName = transformFirstLetter(name);
-    const types = pokeData.types.map((t) => transformFirstLetter(t.type.name));
+    const pokeName = capitalizeFirstLetter(name);
+    const types = pokeData.types.map((t) => capitalizeFirstLetter(t.type.name));
     const [hp, attack, defense, speed] = pokeData.stats
       .filter((s) => features.includes(s.stat.name))
       .map((s) => s.base_stat);

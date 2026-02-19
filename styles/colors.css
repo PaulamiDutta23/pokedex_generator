@@ -1,75 +1,98 @@
+:root {
+  --grass: 147deg 50% 47%; 
+  --poison: 260deg 57% 64%;
+  --fire: 43deg 74% 49%;
+  --flying: 207deg 44% 49%;
+  --water: 210deg 100% 56%;
+  --bug: 0deg 59% 41%;
+  --normal: 0deg 0% 50%;
+  --ground: 30deg 59% 53%;
+  --fairy: 330deg 100% 71%;
+  --fighting: 348deg 83% 47%;
+  --electric: 51deg 73% 50%;
+  --psychic: 39deg 100% 50%;
+  --rock: 0deg 0% 41%;
+  --ice: 180deg 100% 27%;
+  --dragon: 160deg 51% 60%;
+  --ghost: 0deg 0% 0%;
+  --dark: 210deg 13% 50%;
+  --steel: 207deg 44% 49%;
+  --all: 0deg 0% 41%;
+  --transparent: 0deg 0% 100%;
+}
+
 .grass {
-  background-color: mediumseagreen;
+  background-color: hsl(var(--grass));
 }
 
 .poison {
-  background-color: mediumpurple;
+  background-color: hsl(var(--poison));
 }
 
 .fire {
-  background-color: goldenrod;
+  background-color: hsl(var(--fire));
 }
 
 .flying {
-  background-color: steelblue;
+  background-color: hsl(var(--flying));
 }
 
 .water {
-  background-color: dodgerblue;
+  background-color: hsl(var(--water));
 }
 
 .bug {
-  background-color: brown;
+  background-color: hsl(var(--bug));
 }
 
 .normal {
-  background-color: gray;
+  background-color: hsl(var(--normal));
 }
 
 .ground {
-  background-color: peru;
+  background-color: hsl(var(--ground));
 }
 
 .fairy {
-  background-color: hotpink;
+  background-color: hsl(var(--fairy));
 }
 
 .fighting {
-  background-color: crimson;
+  background-color: hsl(var(--fighting));
 }
 
 .electric {
-  background-color: hsl(51deg 73% 50%);
+  background-color: hsl(var(--electric));
 }
 
 .psychic {
-  background-color: orange;
+  background-color: hsl(var(--psychic));
 }
 
 .rock {
-  background-color: dimgray;
+  background-color: hsl(var(--rock));
 }
 
 .ice {
-  background-color: darkcyan;
+  background-color: hsl(var(--ice));
 }
 
 .dragon {
-  background-color: mediumaquamarine;
+  background-color: hsl(var(--dragon));
 }
 
 .ghost {
-  background-color: black;
+  background-color: hsl(var(--ghost));
 }
 
 .dark {
-  background-color: slategray;
+  background-color: hsl(var(--dark));
 }
 
 .steel {
-  background-color: steelblue;
+  background-color: hsl(var(--steel));
 }
 
 .all {
-  background-color: dimgray;
+  background-color: hsl(var(--all));
 }

@@ -1,6 +1,6 @@
-import { transformFirstLetter } from "./fetch_data.js";
+import { capitalizeFirstLetter } from "./fetch_data.js";
 
-const writeToFile = async (path, data) => await Deno.writeTextFile(path, data);
+const writeToFile = (path, data) => Deno.writeTextFileSync(path, data);
 
 const generateHtmlForTypes = (types) => {
   const typesHtml = [];
@@ -14,8 +14,10 @@ const generateHtmlForTypes = (types) => {
 const generateHtmlForCards = (pokemons) => {
   const cards = [];
   for (const pokemon of pokemons) {
+    const [colour1, colour] = pokemon.types.map((t) => t.toLowerCase());
+    const colour2 = colour || "transparent";
     const card = `<div class="card">
-        <div class="img-container">
+        <div class="img-container" style="background: linear-gradient(135deg, hsl(var(--${colour1}) / 50% ), hsl(var(--${colour2}) / 50%), transparent);">
           <img
             src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png"
             alt="This is an image of ${pokemon.pokeName.toLowerCase()}">
@@ -60,11 +62,13 @@ const generateHtmlForCards = (pokemons) => {
 
 const generateHtmlCodeForListItems = (type, types) => {
   const lists = types.map((t) => {
-    const file = t === "all" ? "index" : t;
+    const file = t === "all" ? "/index.html" : `/pages/${t}.html`;
     if (t === type) {
-      return `<li class = ${t}><a href="/pages/${file}.html">${t}</a></li>`;
+      return `<li class = ${t}><a href="${file}">${
+        capitalizeFirstLetter(t)
+      }</a></li>`;
     }
-    return `<li><a href="/pages/${file}.html">${t}</a></li>`;
+    return `<li><a href="${file}">${capitalizeFirstLetter(t)}</a></li>`;
   });
 
   return lists.join("\n");
@@ -104,25 +108,45 @@ const generateHtmlCode = (pokemons, type, types) => {
 };
 
 const getPokemons = (type, pokemons) =>
-  pokemons.filter((p) => p.types.includes(transformFirstLetter(type)));
+  pokemons.filter((p) => p.types.includes(capitalizeFirstLetter(type)));
 
-const generateHtmlFiles = async (pokemons) => {
-  const types = ["all", "bug", "dark", "dragon", "electric", "fairy", "fighting", "fire", "flying", "ghost", "grass", "ground", "ice", "normal", "poison", "psychic", "rock", "steel", "water"];
+const generateHtmlFiles = (pokemons) => {
+  const types = [
+    "all",
+    "bug",
+    "dark",
+    "dragon",
+    "electric",
+    "fairy",
+    "fighting",
+    "fire",
+    "flying",
+    "ghost",
+    "grass",
+    "ground",
+    "ice",
+    "normal",
+    "poison",
+    "psychic",
+    "rock",
+    "steel",
+    "water",
+  ];
 
   for (const type of types) {
     const [pokeData, file] = type === "all"
-      ? [pokemons, "index"]
-      : [getPokemons(type, pokemons), type];
+      ? [pokemons, "./index.html"]
+      : [getPokemons(type, pokemons), `./pages/${type}.html`];
 
-  const htmlCode = generateHtmlCode(pokeData, type, types);
-  await writeToFile(`./pages/${file}.html`, htmlCode);
+    const htmlCode = generateHtmlCode(pokeData, type, types);
+    writeToFile(file, htmlCode);
   }
 };
 
-const readContent = async () => {
+const readContent = () => {
   const content = Deno.readTextFileSync("./pokemons.json");
   const pokemons = JSON.parse(content);
-  return await generateHtmlFiles(pokemons);
+  return generateHtmlFiles(pokemons);
 };
 
-await readContent();
+readContent();
